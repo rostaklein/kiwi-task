@@ -1,52 +1,47 @@
-import { Field, reduxForm } from 'redux-form'
+import React from 'react'
+import keyboardKeys from '../constants/keyboardKeys';
 
-const keyboardKeys = [
-    {
-        main: 1
-    },{
-        main: 2,
-        subs: ["a", "b", "c"]
-    },{
-        main: 3,
-        subs: ["d", "e", "f"]
-    },{
-        main: 4,
-        subs: ["g", "h", "i"]
-    },{
-        main: 5,
-        subs: ["j", "k", "l"]
-    },{
-        main: 6,
-        subs: ["m", "n", "o"]
-    },{
-        main: 7,
-        subs: ["p", "q", "r", "s"]
-    },{
-        main: 8,
-        subs: ["t", "u", "v"]
-    },{
-        main: 9,
-        subs: ["w", "x", "y", "z"]
-    },{
-        main: "*"
-    },{
-        main: 0,
-        subs: ["+"]
-    },{
-        main: "#"
+const initState = {
+    keyClicked: null,
+    clickedTimes: 0
+};
+
+class Keyboard extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = initState;
     }
-]
 
-const keyClicked = (key, fields) => {
-    console.log(key);
-    fields.displayString.onChange(key.main)
-}
+    componentWillMount() {
+        this.timer = null;
+    }
 
-let Keyboard = () => 
-        <div className="keyboard">
+    toggle = () => {
+        console.log(this.state.keyClicked.subs[this.state.clickedTimes-1]);
+        this.setState(initState);
+    }
+
+    keyClicked = key => {
+        this.setState({
+            keyClicked: key,
+            clickedTimes: this.state.clickedTimes+1
+        })
+        clearTimeout(this.timer);
+        console.log(this.state.clickedTimes);
+        if(this.state.clickedTimes < key.subs.length-1){
+            this.timer = setTimeout(()=>this.toggle(key), 1000);
+        }else{
+            this.toggle(key);
+        }
+        
+    }
+
+    render(){
+        return(
+            <div className="keyboard">
             {
                 keyboardKeys.map(key => 
-                    <div key={key.main} className="key" onClick={()=>keyClicked(key, fields)}>
+                    <div key={key.main} className={"key "+(!key.subs ? "disabled" : "")} onClick={key.subs && (()=>this.keyClicked(key))}>
                         <div className="main">{key.main}</div>
                         {key.subs &&
                             <div className="subs">
@@ -61,9 +56,8 @@ let Keyboard = () =>
                 )
             }
         </div>
-
-Keyboard = reduxForm({
-    form: 'display'
-  })(Keyboard)
+        )
+    }
+}        
 
 export default Keyboard;

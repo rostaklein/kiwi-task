@@ -1,9 +1,7 @@
 import { connect } from "react-redux"
 
 const Display = props =>
-<div>
-    {JSON.stringify(props)}
-</div>
+<input type="text" className="display" placeholder="Display" autoComplete="false" />
 
 const mapStateToProps = state => state
 
