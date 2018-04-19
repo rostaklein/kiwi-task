@@ -1,8 +1,11 @@
+@import "./variables.scss";
+
 body{
     margin: 0;
     padding: 0;
     background: whitesmoke;
     font-family: "Roboto", -apple-system, ".SFNSText-Regular", "San Francisco", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
+    color: $black;
 }
 
 html, body, #__next{
@@ -11,4 +14,14 @@ html, body, #__next{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+::-moz-selection {
+    color: white;
+    background: $primary-color;
+}
+  
+::selection {
+    color: white; 
+    background: $primary-color;
 }

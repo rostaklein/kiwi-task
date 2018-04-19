@@ -1,8 +1,18 @@
+import withRedux from "next-redux-wrapper";
+
 import "../styles/main.scss";
-export default () =>
+import "../styles/phone.scss";
+import { initStore } from "../store";
+import Display from "../components/Display";
+
+let Index = () =>
 <div className="container">
-    <h1>This is just the start!</h1>
     <div className="phone">
-        
+        <Display />
     </div>
 </div>
+  
+  
+Index = withRedux(initStore, (state) => ({ state }))(Index);
+
+export default Index;
