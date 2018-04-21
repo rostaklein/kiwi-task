@@ -1,4 +1,4 @@
-export default [
+const keyboardKeys = [
     {
         main: 1
     },{
@@ -34,3 +34,6 @@ export default [
         main: "#"
     }
 ]
+
+export const validNumbers = keyboardKeys.filter(key=>key.subs).map(key=>key.main);
+export default keyboardKeys;

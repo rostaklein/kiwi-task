@@ -2,7 +2,7 @@ import { Component } from "react"
 import { connect } from "react-redux"
 import "../styles/display.scss";
 
-import keyboardKeys from '../constants/keyboardKeys';
+import keyboardKeys, { validNumbers } from '../constants/keyboardKeys';
 import keydown, { ALL_KEYS } from 'react-keydown';
 import onClickOutside from "react-onclickoutside";
 class Display extends Component{
@@ -16,10 +16,9 @@ class Display extends Component{
     @keydown( ALL_KEYS )
     handleKeyDown(event){
         const
-            numPressed = Number(event.key),
-            validKeys = keyboardKeys.filter(key=>key.subs).map(key=>key.main);
+            numPressed = Number(event.key);
 
-        if(Number.isInteger(numPressed) && validKeys.includes(numPressed)){
+        if(Number.isInteger(numPressed) && validNumbers.includes(numPressed)){
             console.log(numPressed);   
         }
     }
