@@ -1,0 +1,41 @@
+@import "./functions";
+@import "./variables";
+
+@include keyframe(key-bg-fadeout) {
+    0% {
+        background-color: transparent;
+    }
+
+    50% {
+        background-color: rgba(0,0,0,0.1);
+    }
+
+    100% {
+        background-color: transparent;
+    }
+}
+
+.display{
+    font-family: 'VT323', monospace;
+    outline: none;
+    display: flex;
+    max-width: 100%;
+    height: 80px;
+    font-size: 42px;
+    align-items: center;
+    justify-content: flex-start;
+    background: lighten($primary-color, 55);
+    border: none;
+    padding: 20px 35px;
+    text-overflow: ellipsis;
+    cursor: text;
+    .new{
+        animation: key-bg-fadeout 0.8s infinite;
+        &:empty:before{
+            content: "";
+            display: inline-block;
+            height: 100%;
+            width: 15px;
+        }
+    }
+}

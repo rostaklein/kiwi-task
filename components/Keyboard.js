@@ -28,7 +28,7 @@ class Keyboard extends React.Component{
         })
         clearTimeout(this.timer);
         console.log(this.state.clickedTimes);
-        if(this.state.clickedTimes < key.subs.length-1){
+        if(this.state.clickedTimes < key.subs.length){
             this.timer = setTimeout(()=>this.toggle(key), 1000);
         }else{
             this.toggle(key);

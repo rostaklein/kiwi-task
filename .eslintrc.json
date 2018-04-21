@@ -8,6 +8,7 @@
     "parser": "babel-eslint",
     "parserOptions": {
         "ecmaFeatures": {
+            "experimentalDecorators": true,
             "jsx": true
         },
         "sourceType": "module"
