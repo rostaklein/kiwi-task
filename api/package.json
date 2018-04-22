@@ -11,6 +11,8 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "nodemon": "^1.17.3",
+    "word-list": "^2.0.0"
   }
 }
