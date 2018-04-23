@@ -2,6 +2,7 @@ import keyboardKeys from '../constants/keyboardKeys';
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { addLetter, removeLastLetter } from '../store/actions/letters';
+import { addToSentence } from '../store/actions/sentence';
 
 const Keyboard = props =>
             <div className="keyboard">
@@ -24,7 +25,7 @@ const Keyboard = props =>
                 <div className="key disabled">
                     <div className="main">*</div>
                 </div>
-                <div className="key">
+                <div className="key" onClick={()=>props.sentenceAdd(" ")}>
                     <div className="subs space">space</div>
                 </div>
                 <div className="key" onClick={()=>props.removeLetter()}>
@@ -34,7 +35,8 @@ const Keyboard = props =>
 
 const mapDispatchToProps = dispatch => ({
     addLetter: bindActionCreators(addLetter, dispatch),
-    removeLetter: bindActionCreators(removeLastLetter, dispatch)
+    removeLetter: bindActionCreators(removeLastLetter, dispatch),
+    sentenceAdd: bindActionCreators(addToSentence, dispatch)
 });
 
 export default connect(null, mapDispatchToProps)(Keyboard);

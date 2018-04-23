@@ -1,5 +1,7 @@
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import Loader from "./Loader";
+import { addToSentence } from "../store/actions/sentence";
 
 const Suggestions = props =>
 <div className="suggestions-cont">
@@ -8,7 +10,7 @@ const Suggestions = props =>
         {props.suggestions.length>0 ?
         (
             props.suggestions.map(sug=>
-            <li key={sug}>
+            <li key={sug} onClick={()=>props.addWord(sug)}>
                 {sug}
             </li>)
         )
@@ -19,6 +21,10 @@ const Suggestions = props =>
     </ul>
 </div>
 
-const mapStateToProps = ({ suggestions, isLoading }) => ({ suggestions, isLoading })
+const mapStateToProps = ({ suggestions, isLoading }) => ({ suggestions, isLoading });
 
-export default connect(mapStateToProps)(Suggestions);
+const mapDispatchToProps = dispatch => ({
+    addWord: bindActionCreators(addToSentence, dispatch)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Suggestions);

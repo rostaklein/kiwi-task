@@ -7,7 +7,7 @@ export const initialState = {
   numbers: "",
   suggestions: [],
   isLoading: false,
-  sentence: "Whatever rly rly loong"
+  sentence: ""
 }
 
 export const initStore = (initialState = initialState) => {

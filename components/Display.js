@@ -37,10 +37,10 @@ class Display extends Component{
 
     render(){
         return(
-            <div className="display" onClick={()=>this.setState({isActive: true})}>
+            <div className={"display" + (this.props.sentence.length==0 ? " no-content" : "")} onClick={()=>this.setState({isActive: true})}>
                 <div className="content">
                     <span className="sentence">
-                        {this.props.sentence.length ? this.props.sentence : "Press any key."}
+                        {this.props.sentence.length>0 && this.props.sentence}
                     </span>
                     <span className="numbers">{this.props.numbers.length>0 ? this.props.numbers : "Press any key."}</span>
                     {
