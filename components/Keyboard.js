@@ -1,63 +1,40 @@
-import React from 'react'
 import keyboardKeys from '../constants/keyboardKeys';
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { addLetter, removeLastLetter } from '../store/actions/letters';
 
-const initState = {
-    keyClicked: null,
-    clickedTimes: 0
-};
-
-class Keyboard extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = initState;
-    }
-
-    componentWillMount() {
-        this.timer = null;
-    }
-
-    toggle = () => {
-        console.log(this.state.keyClicked.subs[this.state.clickedTimes-1]);
-        this.setState(initState);
-    }
-
-    keyClicked = key => {
-        this.setState({
-            keyClicked: key,
-            clickedTimes: this.state.clickedTimes+1
-        })
-        clearTimeout(this.timer);
-        console.log(this.state.clickedTimes);
-        if(this.state.clickedTimes < key.subs.length){
-            this.timer = setTimeout(()=>this.toggle(key), 1000);
-        }else{
-            this.toggle(key);
-        }
-        
-    }
-
-    render(){
-        return(
+const Keyboard = props =>
             <div className="keyboard">
-            {
-                keyboardKeys.map(key => 
-                    <div key={key.main} className={"key "+(!key.subs ? "disabled" : "")} onClick={key.subs && (()=>this.keyClicked(key))}>
-                        <div className="main">{key.main}</div>
-                        {key.subs &&
-                            <div className="subs">
-                            {
-                                key.subs.map(sub => 
-                                    <span key={sub}>{sub}</span>
-                                )
+                {
+                    keyboardKeys.map(key => 
+                        <div key={key.main} className={"key "+(!key.subs ? "disabled" : "")} onClick={key.subs && (()=>props.addLetter(key.main))}>
+                            <div className="main">{key.main}</div>
+                            {key.subs &&
+                                <div className="subs">
+                                {
+                                    key.subs.map(sub => 
+                                        <span key={sub}>{sub==" " ? "space" : sub}</span>
+                                    )
+                                }
+                                </div>
                             }
-                            </div>
-                        }
-                    </div>
-                )
-            }
-        </div>
-        )
-    }
-}        
+                        </div>
+                    )
+                }
+                <div className="key disabled">
+                    <div className="main">*</div>
+                </div>
+                <div className="key">
+                    <div className="subs space">space</div>
+                </div>
+                <div className="key" onClick={()=>props.removeLetter()}>
+                    <div className="main back"><i className="fa fa-long-arrow-left"></i></div>
+                </div>
+            </div>   
 
-export default Keyboard;
+const mapDispatchToProps = dispatch => ({
+    addLetter: bindActionCreators(addLetter, dispatch),
+    removeLetter: bindActionCreators(removeLastLetter, dispatch)
+});
+
+export default connect(null, mapDispatchToProps)(Keyboard);

@@ -1,10 +1,13 @@
 import { Component } from "react"
 import { connect } from "react-redux"
+import { bindActionCreators } from "redux";
+import { addLetter, removeLastLetter } from '../store/actions/letters';
 import "../styles/display.scss";
 
-import keyboardKeys, { validNumbers } from '../constants/keyboardKeys';
+import { validNumbers } from '../constants/keyboardKeys';
 import keydown, { ALL_KEYS } from 'react-keydown';
 import onClickOutside from "react-onclickoutside";
+
 class Display extends Component{
     constructor(props){
         super(props);
@@ -18,8 +21,11 @@ class Display extends Component{
         const
             numPressed = Number(event.key);
 
+        if(event.which==8){
+            return this.props.removeLetter();
+        }
         if(Number.isInteger(numPressed) && validNumbers.includes(numPressed)){
-            console.log(numPressed);   
+            return this.props.addLetter(numPressed);   
         }
     }
 
@@ -32,16 +38,28 @@ class Display extends Component{
     render(){
         return(
             <div className="display" onClick={()=>this.setState({isActive: true})}>
-                <span className="content">Some text</span>
-                {
-                    this.state.isActive &&
-                    <span className="new"></span>
-                }
+                <div className="content">
+                    <span className="sentence">
+                        {this.props.sentence.length ? this.props.sentence : "Press any key."}
+                    </span>
+                    <span className="numbers">{this.props.numbers.length>0 ? this.props.numbers : "Press any key."}</span>
+                    {
+                        this.state.isActive &&
+                        <span className="new"></span>
+                    }
+                </div>  
             </div>
         )
     }
 }
 
-const mapStateToProps = state => state
+const mapStateToProps = ({ numbers, sentence }) => ({
+    numbers,
+    sentence
+});
+const mapDispatchToProps = dispatch => ({
+    addLetter: bindActionCreators(addLetter, dispatch),
+    removeLetter: bindActionCreators(removeLastLetter, dispatch)
+})
 
-export default connect(mapStateToProps)(onClickOutside(Display));
+export default connect(mapStateToProps, mapDispatchToProps)(onClickOutside(Display));

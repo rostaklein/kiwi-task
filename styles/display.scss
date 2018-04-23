@@ -29,6 +29,10 @@
     padding: 20px 35px;
     text-overflow: ellipsis;
     cursor: text;
+    .content{
+        white-space: nowrap;
+        overflow-x: scroll;
+    }
     .new{
         animation: key-bg-fadeout 0.8s infinite;
         &:empty:before{
@@ -37,5 +41,12 @@
             height: 100%;
             width: 15px;
         }
+    }
+    .sentence{
+        margin-right: 15px;
+    }
+    .numbers{
+        font-size: 18px;
+        color: rgba(0,0,0,0.5);
     }
 }

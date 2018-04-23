@@ -4,7 +4,10 @@ import thunkMiddleware from 'redux-thunk'
 import { reducer as generalReducer } from "./reducers"
 
 export const initialState = {
-  some: "thing"
+  numbers: "",
+  suggestions: [],
+  isLoading: false,
+  sentence: "Whatever rly rly loong"
 }
 
 export const initStore = (initialState = initialState) => {

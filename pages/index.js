@@ -5,14 +5,14 @@ import "../styles/phone.scss";
 import { initStore } from "../store";
 import Display from "../components/Display";
 import Keyboard from "../components/Keyboard";
+import Suggestions from "../components/Suggestions";
 
 let Index = () =>
-<div className="container">
     <div className="phone">
         <Display />
+        <Suggestions />
         <Keyboard />
     </div>
-</div>
   
   
 Index = withRedux(initStore, (state) => ({ state }))(Index);
